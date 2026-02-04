@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyEman - Customer Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --teal: #1B7E83;
+            --teal-dark: #156469;
+            --teal-light: #E8F4F4;
+            --grey: #666666;
+            --dark: #333333;
+            --white: #FFFFFF;
+            --message: #2D2D2D;
+            --warning: #E74C3C;
+            --success: #27AE60;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 50px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--teal-light);
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--teal);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo span {
+            color: var(--dark);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header .tagline {
+            font-size: 14px;
+            color: var(--grey);
+            font-style: italic;
+        }
+        
+        /* Entry Points */
+        .entry-section {
+            margin-bottom: 40px;
+        }
+        
+        .entry-points {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .entry-box {
+            background: var(--teal);
+            color: var(--white);
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(27, 126, 131, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .entry-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(27, 126, 131, 0.4);
+        }
+        
+        .entry-note {
+            font-size: 11px;
+            color: var(--grey);
+            margin-top: 8px;
+            text-align: center;
+        }
+        
+        /* Connector */
+        .connector {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .connector-line {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--teal), var(--teal-dark));
+            position: relative;
+        }
+        
+        .connector-line::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid var(--teal-dark);
+        }
+        
+        /* Process Steps */
+        .process-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .rp-box {
+            background: var(--teal-light);
+            border: 2px solid var(--teal);
+            border-radius: 12px;
+            padding: 12px 20px;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .rp-box .label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .rp-box .value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-top: 4px;
+        }
+        
+        .step-box {
+            background: var(--white);
+            border: 3px solid var(--teal);
+            border-radius: 16px;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            min-width: 450px;
+            box-shadow: 0 4px 20px rgba(27, 126, 131, 0.15);
+        }
+        
+        .step-number {
+            background: var(--teal);
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            font-size: 12px;
+            color: var(--grey);
+            margin-top: 4px;
+        }
+        
+        .sla-box {
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* Message Box */
+        .message-step {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .message-box {
+            background: var(--message);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .message-letter {
+            font-weight: 700;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .message-text {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .message-icon {
+            font-size: 18px;
+        }
+        
+        /* Decision Box */
+        .decision-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .decision-box {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            color: var(--white);
+            min-width: 200px;
+            padding: 20px 40px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(27, 126, 131, 0.3);
+            position: relative;
+        }
+        
+        .decision-box::before {
+            content: '?';
+            position: absolute;
+            left: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            opacity: 0.5;
+        }
+        
+        .decision-box span {
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+        }
+        
+        .decision-path {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .path-label {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .path-label.yes {
+            color: var(--success);
+        }
+        
+        .path-label.no {
+            color: var(--warning);
+        }
+        
+        .path-action {
+            background: var(--white);
+            border: 2px dashed var(--warning);
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 11px;
+            color: var(--warning);
+            font-weight: 500;
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--teal-light), var(--teal), var(--teal-light), transparent);
+        }
+        
+        .divider-text {
+            background: var(--teal);
+            color: var(--white);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* End Box */
+        .end-box {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 25px 50px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(27, 126, 131, 0.4);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        
+        .end-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .end-box p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* Future Section */
+        .future-section {
+            background: linear-gradient(135deg, var(--teal-light) 0%, #d4e8e9 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 2px solid var(--teal);
+        }
+        
+        .future-section h2 {
+            color: var(--teal);
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .future-items {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .future-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            min-width: 200px;
+        }
+        
+        .future-item .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .future-item h4 {
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .future-item p {
+            font-size: 11px;
+            color: var(--grey);
+        }
+        
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--teal-light);
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-box {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .legend-box.process {
+            background: var(--white);
+            border: 2px solid var(--teal);
+        }
+        
+        .legend-box.message {
+            background: var(--message);
+        }
+        
+        .legend-box.decision {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            border-radius: 10px;
+            width: 30px;
+            height: 20px;
+        }
+        
+        .legend-box.rp {
+            background: var(--teal-light);
+            border: 2px solid var(--teal);
+        }
+        
+        .legend-text {
+            font-size: 12px;
+            color: var(--grey);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--teal-light);
+        }
+        
+        .footer p {
+            font-size: 11px;
+            color: var(--grey);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">MY<span>EMAN</span></div>
+            <h1>Customer Journey Flowchart</h1>
+            <p class="tagline">Smart. Secure. Seamless.</p>
+        </div>
+        
+        <!-- Entry Points -->
+        <div class="entry-section">
+            <div class="entry-points">
+                <div>
+                    <div class="entry-box">📞 Call</div>
+                    <div class="entry-note">Manual Entry</div>
+                </div>
+                <div>
+                    <div class="entry-box">💬 WhatsApp</div>
+                    <div class="entry-note">Manual Entry</div>
+                </div>
+                <div>
+                    <div class="entry-box">📧 Email</div>
+                    <div class="entry-note">Manual Entry</div>
+                </div>
+                <div>
+                    <div class="entry-box">🌐 Website</div>
+                    <div class="entry-note">Auto Entry</div>
+                </div>
+                <div>
+                    <div class="entry-box">🚶 Walk-in</div>
+                    <div class="entry-note">Manual Entry</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 1 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">CSR-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Lead Registration in CRM</h3>
+                    <p>Register client details and inquiry in the system</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Within 5 Mins</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message a -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">a)</span>
+                <span class="message-text">Lead Confirmation Message Sent to Client</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 2 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">SLS-01 / SLS-02</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Assign to Sales Consultant</h3>
+                    <p>Route lead to available sales consultant</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Within 10 Mins</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 3 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">SLS-01 / SLS-02</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Client Consultation & Needs Analysis</h3>
+                    <p>Understand requirements and recommend services</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Within 30 Mins</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Decision 1 -->
+        <div class="decision-section">
+            <div class="decision-path">
+                <span class="path-label no">No</span>
+                <div class="path-action">Follow-up<br>Within 24 Hours</div>
+            </div>
+            <div class="decision-box">
+                <span>Service<br>Confirmed?</span>
+            </div>
+            <div class="decision-path">
+                <span class="path-label yes">Yes ↓</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 4 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">SLS-01 / SLS-02</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Quotation & Invoice Generation</h3>
+                    <p>Prepare pricing and payment details</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Within 30 Mins</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message b -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">b)</span>
+                <span class="message-text">Quotation & Payment Link Sent to Client</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Decision 2 -->
+        <div class="decision-section">
+            <div class="decision-path">
+                <span class="path-label no">No</span>
+                <div class="path-action">Payment Reminder<br>Within 24 Hours</div>
+            </div>
+            <div class="decision-box">
+                <span>Payment<br>Received?</span>
+            </div>
+            <div class="decision-path">
+                <span class="path-label yes">Yes ↓</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message c -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">c)</span>
+                <span class="message-text">Booking Confirmation Message</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 5 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">DOC-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Document Collection & Verification</h3>
+                    <p>Collect and verify all required documents</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ 1-2 Days</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message d -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">d)</span>
+                <span class="message-text">Document Checklist Sent to Client</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 6 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">OPS-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Application Processing</h3>
+                    <p>Prepare and process application internally</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Per Service SLA</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message e -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">e)</span>
+                <span class="message-text">Processing Started Notification</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 7 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">PRO-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <h3>Government Submission</h3>
+                    <p>Submit application to government authorities</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Per Service SLA</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message f -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">f)</span>
+                <span class="message-text">Application Submitted - Tracking Number Shared</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 8 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">PRO-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">8</div>
+                <div class="step-content">
+                    <h3>Government Follow-up & Approval</h3>
+                    <p>Track application status and obtain approval</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Daily Follow-up</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message g -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">g)</span>
+                <span class="message-text">Approval Notification - Service Ready</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 9 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">PRO-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">9</div>
+                <div class="step-content">
+                    <h3>Document Collection from Government</h3>
+                    <p>Collect approved documents from authorities</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ 1-2 Days</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 10 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">DLV-01</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">10</div>
+                <div class="step-content">
+                    <h3>Delivery to Client</h3>
+                    <p>Deliver documents via courier or client pickup</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Same Day</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message h -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">h)</span>
+                <span class="message-text">Delivery Confirmation & Receipt</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Step 11 -->
+        <div class="process-step">
+            <div class="rp-box">
+                <div class="label">Responsible</div>
+                <div class="value">SLS-01 / SLS-02</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">11</div>
+                <div class="step-content">
+                    <h3>Service Completion & Feedback</h3>
+                    <p>Close transaction and request client feedback</p>
+                </div>
+            </div>
+            <div class="sla-box">⏱ Within 1 Hour</div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- Message i -->
+        <div class="message-step">
+            <div class="message-box">
+                <span class="message-icon">📱</span>
+                <span class="message-letter">i)</span>
+                <span class="message-text">Thank You Message & Feedback Request</span>
+            </div>
+        </div>
+        
+        <div class="connector"><div class="connector-line"></div></div>
+        
+        <!-- End Box -->
+        <div class="end-box">
+            <h3>✅ Transaction Complete</h3>
+            <p>Service successfully delivered to client</p>
+        </div>
+        
+        <!-- Future Follow-up Section -->
+        <div class="section-divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">Future Client Engagement</div>
+            <div class="divider-line"></div>
+        </div>
+        
+        <div class="future-section">
+            <h2>🔄 Ongoing Client Relationship Management</h2>
+            <div class="future-items">
+                <div class="future-item">
+                    <div class="icon">📅</div>
+                    <h4>Renewal Reminders</h4>
+                    <p>Automated reminders before<br>license/visa expiry dates</p>
+                </div>
+                <div class="future-item">
+                    <div class="icon">📊</div>
+                    <h4>Upselling Opportunities</h4>
+                    <p>Recommend related services<br>based on client profile</p>
+                </div>
+                <div class="future-item">
+                    <div class="icon">🎯</div>
+                    <h4>Cross-selling</h4>
+                    <p>Offer complementary services<br>(Visa, Ejari, PRO)</p>
+                </div>
+                <div class="future-item">
+                    <div class="icon">⭐</div>
+                    <h4>Loyalty Program</h4>
+                    <p>Special rates for<br>returning clients</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box process"></div>
+                <span class="legend-text">Process Step</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box message"></div>
+                <span class="legend-text">Client Message</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box decision"></div>
+                <span class="legend-text">Decision Point</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box rp"></div>
+                <span class="legend-text">RP = Responsible Position</span>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 MyEman | Empowering progress through simplicity</p>
+        </div>
+    </div>
+</body>
+</html>
